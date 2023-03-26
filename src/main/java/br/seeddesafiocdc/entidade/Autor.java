@@ -2,6 +2,7 @@ package br.seeddesafiocdc.entidade;
 
 import br.seeddesafiocdc.dto.AutorDto;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 
 import java.time.ZonedDateTime;
 
@@ -16,6 +17,7 @@ public class Autor {
     private String nome;
 
     @Column(nullable = false)
+    @Email
     private String email;
 
     @Column(nullable = false, length = 400)

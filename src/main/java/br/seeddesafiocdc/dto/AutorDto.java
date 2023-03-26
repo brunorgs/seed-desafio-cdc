@@ -1,6 +1,7 @@
 package br.seeddesafiocdc.dto;
 
 import br.seeddesafiocdc.entidade.Autor;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;
 
@@ -14,6 +15,7 @@ public class AutorDto {
     private String nome;
 
     @NotBlank
+    @Email
     private String email;
 
     @NotBlank
