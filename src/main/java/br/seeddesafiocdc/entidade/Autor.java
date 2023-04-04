@@ -24,14 +24,15 @@ public class Autor {
     private String descricao;
 
     @Column(nullable = false)
-    private ZonedDateTime dataCriacao;
+    private ZonedDateTime dataCriacao = ZonedDateTime.now();
 
     public Autor(Long id, String nome, String email, String descricao, ZonedDateTime dataCriacao) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.descricao = descricao;
-        this.dataCriacao = dataCriacao;
+
+        if(dataCriacao != null) this.dataCriacao = dataCriacao;
     }
 
     public Autor() {

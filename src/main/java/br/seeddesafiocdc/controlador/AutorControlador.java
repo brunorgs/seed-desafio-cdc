@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.ZonedDateTime;
-
 @RestController
 @RequestMapping("/api/autor")
 public class AutorControlador {
@@ -29,7 +27,6 @@ public class AutorControlador {
     public ResponseEntity<Object> criaAutor(@RequestBody @Valid AutorDto autorDto) {
 
         Autor autor = autorDto.paraEntidade();
-        autor.setDataCriacao(ZonedDateTime.now());
 
         Autor autorDB = autorRepositorio.save(autor);
 
