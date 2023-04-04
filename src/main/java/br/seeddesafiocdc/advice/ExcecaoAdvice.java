@@ -6,6 +6,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -30,6 +31,10 @@ public class ExcecaoAdvice {
     private List<String> mapErrors(MethodArgumentNotValidException exception) {
 
         List<String> mensagens = new ArrayList<>();
+
+        for (ObjectError error : exception.getBindingResult().getAllErrors()) {
+            mensagens.add(messageSource.getMessage(error.getCode(), null, LocaleContextHolder.getLocale()));
+        }
 
         for (FieldError error : exception.getBindingResult().getFieldErrors()) {
             mensagens.add(String.format("%s %s",

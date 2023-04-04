@@ -16,7 +16,7 @@ public class Autor {
     @Column(nullable = false)
     private String nome;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     @Email
     private String email;
 
