@@ -1,6 +1,7 @@
 package br.seeddesafiocdc.dto;
 
 import br.seeddesafiocdc.entidade.Autor;
+import br.seeddesafiocdc.validators.UniqueValue;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;
@@ -16,6 +17,7 @@ public class AutorDto {
 
     @NotBlank
     @Email
+    @UniqueValue(field = "email", domainClass = Autor.class)
     private String email;
 
     @NotBlank

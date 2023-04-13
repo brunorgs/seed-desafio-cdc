@@ -3,30 +3,24 @@ package br.seeddesafiocdc.controlador;
 import br.seeddesafiocdc.dto.CategoriaDto;
 import br.seeddesafiocdc.entidade.Categoria;
 import br.seeddesafiocdc.repositorio.CategoriaRepositorio;
-import br.seeddesafiocdc.validators.CategoriaNomeDuplicadoValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/categoria")
 public class CategoriaControlador {
 
     private CategoriaRepositorio categoriaRepositorio;
-    private CategoriaNomeDuplicadoValidator categoriaNomeDuplicadoValidator;
 
     @Autowired
-    public CategoriaControlador(CategoriaRepositorio categoriaRepositorio, CategoriaNomeDuplicadoValidator categoriaNomeDuplicadoValidator) {
+    public CategoriaControlador(CategoriaRepositorio categoriaRepositorio) {
         this.categoriaRepositorio = categoriaRepositorio;
-        this.categoriaNomeDuplicadoValidator = categoriaNomeDuplicadoValidator;
-    }
-
-    @InitBinder
-    public void init(WebDataBinder binder) {
-        binder.addValidators(categoriaNomeDuplicadoValidator);
     }
 
     @PostMapping
