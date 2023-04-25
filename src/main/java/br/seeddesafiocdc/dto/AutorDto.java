@@ -37,6 +37,16 @@ public class AutorDto {
         this.dataCriacao = dataCriacao;
     }
 
+    public static AutorDto paraDto(Autor autor) {
+        return new AutorDto(
+                autor.getId(),
+                autor.getNome(),
+                autor.getEmail(),
+                autor.getDescricao(),
+                autor.getDataCriacao()
+        );
+    }
+
     public Long getId() {
         return id;
     }

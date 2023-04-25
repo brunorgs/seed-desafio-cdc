@@ -1,6 +1,7 @@
 package br.seeddesafiocdc.advice;
 
 import br.seeddesafiocdc.dto.ErroValidacaoDto;
+import br.seeddesafiocdc.exception.LivroNaoExisteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RestControllerAdvice
@@ -25,6 +27,12 @@ public class ExcecaoAdvice {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ErroValidacaoDto trataExcecaoValidacao(MethodArgumentNotValidException exception) {
         return new ErroValidacaoDto(mapErrors(exception));
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(LivroNaoExisteException.class)
+    public ErroValidacaoDto trataExcecaoValidacao(LivroNaoExisteException exception) {
+        return new ErroValidacaoDto(Collections.singletonList(String.format("Livro com o id %d não existe", exception.getLivroid())));
     }
 
 

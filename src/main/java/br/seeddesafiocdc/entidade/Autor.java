@@ -1,6 +1,5 @@
 package br.seeddesafiocdc.entidade;
 
-import br.seeddesafiocdc.dto.AutorDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 
@@ -77,15 +76,5 @@ public class Autor {
 
     public void setDataCriacao(ZonedDateTime dataCriacao) {
         this.dataCriacao = dataCriacao;
-    }
-
-    public AutorDto paraDto() {
-        return new AutorDto(
-                this.id,
-                this.nome,
-                this.email,
-                this.descricao,
-                this.dataCriacao
-        );
     }
 }

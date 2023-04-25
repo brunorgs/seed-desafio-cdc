@@ -30,6 +30,6 @@ public class AutorControlador {
 
         Autor autorDB = autorRepositorio.save(autor);
 
-        return new ResponseEntity<>(autorDB.paraDto(), HttpStatus.OK);
+        return new ResponseEntity<>(AutorDto.paraDto(autorDB), HttpStatus.OK);
     }
 }
