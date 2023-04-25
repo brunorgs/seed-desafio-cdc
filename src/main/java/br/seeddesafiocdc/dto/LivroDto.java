@@ -1,7 +1,11 @@
 package br.seeddesafiocdc.dto;
 
+import br.seeddesafiocdc.entidade.Autor;
+import br.seeddesafiocdc.entidade.Categoria;
 import br.seeddesafiocdc.entidade.Livro;
+import br.seeddesafiocdc.validators.IdExists;
 import br.seeddesafiocdc.validators.UniqueValue;
+import jakarta.persistence.EntityManager;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -9,7 +13,6 @@ import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 import java.math.BigDecimal;
-
 import java.util.Date;
 
 public class LivroDto {
@@ -40,12 +43,15 @@ public class LivroDto {
     private Date dataPublicacao;
 
     @NotNull
-    private CategoriaDto categoria;
+    @IdExists(domainClass = Categoria.class)
+    private Long categoriaId;
 
-    private AutorDto autor;
+    @NotNull
+    @IdExists(domainClass = Autor.class)
+    private Long autorId;
 
     public LivroDto(String titulo, String resumo, String sumario, BigDecimal preco,
-                    Integer numeroPaginas, String isbn, Date dataPublicacao, CategoriaDto categoria, AutorDto autor) {
+                    Integer numeroPaginas, String isbn, Date dataPublicacao, Long categoria, Long autor) {
         this.titulo = titulo;
         this.resumo = resumo;
         this.sumario = sumario;
@@ -53,14 +59,18 @@ public class LivroDto {
         this.numeroPaginas = numeroPaginas;
         this.isbn = isbn;
         this.dataPublicacao = dataPublicacao;
-        this.categoria = categoria;
-        this.autor = autor;
+        this.categoriaId = categoria;
+        this.autorId = autor;
     }
 
     public LivroDto() {
     }
 
-    public Livro paraEntidade() {
+    public Livro paraEntidade(EntityManager entityManager) {
+
+        Categoria categoria = entityManager.find(Categoria.class, this.categoriaId);
+        Autor autor = entityManager.find(Autor.class, this.autorId);
+
         return new Livro(
             this.titulo,
             this.resumo,
@@ -69,80 +79,8 @@ public class LivroDto {
             this.numeroPaginas,
             this.isbn,
             this.dataPublicacao,
-            this.categoria.toModel(),
-            this.autor.paraEntidade()
+            categoria,
+            autor
         );
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getResumo() {
-        return resumo;
-    }
-
-    public void setResumo(String resumo) {
-        this.resumo = resumo;
-    }
-
-    public String getSumario() {
-        return sumario;
-    }
-
-    public void setSumario(String sumario) {
-        this.sumario = sumario;
-    }
-
-    public BigDecimal getPreco() {
-        return preco;
-    }
-
-    public void setPreco(BigDecimal preco) {
-        this.preco = preco;
-    }
-
-    public Integer getNumeroPaginas() {
-        return numeroPaginas;
-    }
-
-    public void setNumeroPaginas(Integer numeroPaginas) {
-        this.numeroPaginas = numeroPaginas;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
-
-    public Date getDataPublicacao() {
-        return dataPublicacao;
-    }
-
-    public void setDataPublicacao(Date dataPublicacao) {
-        this.dataPublicacao = dataPublicacao;
-    }
-
-    public CategoriaDto getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(CategoriaDto categoria) {
-        this.categoria = categoria;
-    }
-
-    public AutorDto getAutor() {
-        return autor;
-    }
-
-    public void setAutor(AutorDto autor) {
-        this.autor = autor;
     }
 }

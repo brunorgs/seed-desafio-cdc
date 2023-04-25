@@ -1,6 +1,5 @@
 package br.seeddesafiocdc.entidade;
 
-import br.seeddesafiocdc.dto.LivroDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
@@ -60,19 +59,5 @@ public class Livro {
     }
 
     public Livro() {
-    }
-
-    public LivroDto paraDto() {
-        return new LivroDto(
-            this.titulo,
-            this.resumo,
-            this.sumario,
-            this.preco,
-            this.numeroPaginas,
-            this.isbn,
-            this.dataPublicacao,
-            this.categoria.paraDto(),
-            this.autor.paraDto()
-        );
     }
 }
