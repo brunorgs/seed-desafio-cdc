@@ -21,6 +21,8 @@ public class IdExistsValidator implements ConstraintValidator<IdExists, Object> 
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext context) {
 
+        if(value == null) return true;
+
         Query query = entityManager.createQuery(String.format("select 1 from %s where id=:value", tClass.getSimpleName().toLowerCase()));
         query.setParameter("value", value);
 
