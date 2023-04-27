@@ -2,12 +2,11 @@ package br.seeddesafiocdc.dto;
 
 import br.seeddesafiocdc.entidade.Estado;
 import br.seeddesafiocdc.entidade.Pais;
+import br.seeddesafiocdc.validators.Documento;
 import br.seeddesafiocdc.validators.IdExists;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import org.hibernate.validator.internal.constraintvalidators.hv.br.CNPJValidator;
-import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator;
 
 public class CompraRequest {
 
@@ -22,6 +21,7 @@ public class CompraRequest {
     private String sobrenome;
 
     @NotBlank
+    @Documento
     private String documento;
 
     @NotBlank
@@ -91,16 +91,5 @@ public class CompraRequest {
 
     public String getCep() {
         return cep;
-    }
-
-    public boolean temDocumentoValido() {
-
-        CPFValidator cpfValidator = new CPFValidator();
-        cpfValidator.initialize(null);
-
-        CNPJValidator cnpjValidator = new CNPJValidator();
-        cnpjValidator.initialize(null);
-
-        return cpfValidator.isValid(this.documento, null) || cnpjValidator.isValid(this.documento, null);
     }
 }

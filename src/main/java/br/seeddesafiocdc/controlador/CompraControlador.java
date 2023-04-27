@@ -1,7 +1,6 @@
 package br.seeddesafiocdc.controlador;
 
 import br.seeddesafiocdc.dto.CompraRequest;
-import br.seeddesafiocdc.validators.DocumentoCpfCnpjValidator;
 import br.seeddesafiocdc.validators.EstadoValidator;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -22,7 +21,7 @@ public class CompraControlador {
 
     @InitBinder
     public void init(WebDataBinder binder) {
-        binder.addValidators(new DocumentoCpfCnpjValidator(), estadoValidator);
+        binder.addValidators(estadoValidator);
     }
 
     @PostMapping
